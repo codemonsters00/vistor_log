@@ -1,27 +1,17 @@
 import 'package:flutter/material.dart';
 import 'pages/LoginPage.dart';
 
-
-
-void main() => runApp(MyApp());
-
-
-class MyApp extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return MyAppState();
-  }
+void main() {
+  runApp(MyApp());
 }
 
-class MyAppState extends State<MyApp> {
- 
+class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: (LoginPage()
-         
-        ));
+    return Container(
+        child: MaterialApp(
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            home: (LoginPage())));
   }
 }

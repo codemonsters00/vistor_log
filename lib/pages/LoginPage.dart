@@ -26,7 +26,7 @@ class LoginPageState extends State<LoginPage> {
     final passwordField = TextField(
       obscureText: true,
       style: style,
-      
+
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Password",
@@ -78,7 +78,7 @@ class LoginPageState extends State<LoginPage> {
                   ),
                   loginButon,
                   SizedBox(
-                    height: 15.0,
+                    height: 40.0,
                   ),
                 ],
               ),
