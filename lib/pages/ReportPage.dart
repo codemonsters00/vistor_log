@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vistor_log/models/employeebloc.dart';
+
 import 'package:vistor_log/models/employees.dart';
+
+import 'package:vistor_log/services/employeebloc.dart';
+import 'package:vistor_log/services/vistor.bloc.dart';
 
 class ReportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    
-     final appState = Provider.of<EmployeeState>(context);
+    final appState = Provider.of<EmployeeState>(context);
+    final visitortest = Provider.of<VisitorState>(context);
+    Map<String, dynamic> map = {'name': 'man', 'sex': 'females'};
+    visitortest.recordVisit(map);
 
     return Container(
       child: FutureBuilder<Employee>(
@@ -22,7 +27,7 @@ class ReportPage extends StatelessWidget {
           }
 
           // By default, show a loading spinner.
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         },
       ),
     );

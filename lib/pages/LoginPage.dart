@@ -64,10 +64,10 @@ class LoginPageState extends State<LoginPage> {
                 children: <Widget>[
                   SizedBox(
                     height: 155.0,
-                    child: Image.asset(
-                      "assets/logo.png",
-                      fit: BoxFit.contain,
-                    ),
+                    // child: Image.asset(
+                    //   "assets/logo.png",
+                    //   fit: BoxFit.contain,
+                    // ),
                   ),
                   SizedBox(height: 15.0),
                   emailField,

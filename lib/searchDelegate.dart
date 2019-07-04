@@ -47,22 +47,22 @@ class CustomDelegate extends SearchDelegate<String>  {
             onTap:(){
                showModalBottomSheet<void>(context: context,
     builder: (BuildContext context) {
-      return new Column(
+      return  Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          new ListTile(
-            leading: new Icon(Icons.person),
-            title: new Text(suggestionList[index]),
+           ListTile(
+            leading:  Icon(Icons.person),
+            title:  Text(suggestionList[index]),
             onTap: () {},          
           ),
-          new ListTile(
-            leading: new Icon(Icons.photo_album),
-            title: new Text('Photos'),
+           ListTile(
+            leading:  Icon(Icons.photo_album),
+            title:  Text('Photos'),
             onTap: () {},          
           ),
-          new ListTile(
-            leading: new Icon(Icons.videocam),
-            title: new Text('Video'),
+           ListTile(
+            leading:  Icon(Icons.videocam),
+            title:  Text('Video'),
             onTap: (){},          
           ),
         ],
