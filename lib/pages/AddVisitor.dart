@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vistor_log/models/vistor.dart';
+import 'package:provider/provider.dart';
+import 'package:vistor_log/services/vistor.bloc.dart';
+
 
 class AddVisitorPage extends StatefulWidget {
   @override
@@ -9,10 +11,18 @@ class AddVisitorPage extends StatefulWidget {
 }
 
 class AddVisitorPageState extends State<AddVisitorPage> {
-  Visitor visitor;
+ 
   GlobalKey<FormState> _key = GlobalKey();
   String dropdownValue = 'One';
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
+  
+  final Map<String, dynamic> _formData = {
+    'name': null,
+    'phone': null,
+    'email': null,
+    'staffToSee': null,
+    'seen': 'true' 
+  };
 
   Widget _buildNumberTextField() {
     return TextFormField(
@@ -20,13 +30,12 @@ class AddVisitorPageState extends State<AddVisitorPage> {
       decoration: InputDecoration(labelText: 'Phone'),
       validator: (String value) {
         // if (value.trim().length <= 0) {
-        if (value.isEmpty ||
-            !RegExp(r'^(?:[1-9]\d*|0)?(?:\.\d+)?$').hasMatch(value)) {
-          return 'Price is required and should be a number.';
+        if (value.isEmpty ) {
+          return 'Phone is required and should be a number.';
         }
       },
       onSaved: (String value) {
-
+        _formData['phone'] = value;
       },
     );
   }
@@ -41,7 +50,7 @@ class AddVisitorPageState extends State<AddVisitorPage> {
         }
       },
       onSaved: (String name) {
-        visitor.name= name;
+        _formData['name'] = name;
       },
     );
   }
@@ -51,24 +60,28 @@ class AddVisitorPageState extends State<AddVisitorPage> {
       decoration: InputDecoration(labelText: 'Email'),
       validator: (String value) {
         // if (value.trim().length <= 0) {
-        if (value.isEmpty || !value.contains("@") || value.contains(".")) {
+        if (value.isEmpty || !value.contains("@") || !value.contains(".")) {
           return 'Enter Valid Email.';
         }
       },
-      onSaved: (String value) {},
+      onSaved: (String value) {
+        _formData['email'] = value;
+      },
     );
   }
 
-  // void _submitForm() {
-  //   if (!_key.currentState.validate()) {
-  //     return;
-  //   }
-  //   _key.currentState.save();
-   
-  //   Navigator.pushReplacementNamed(context, '/products');
-  // }
+  void _submitForm() {
+    
+    if (!_key.currentState.validate()) {
+      return;
+    }
+    _key.currentState.save();
+     
+     
+  }
 
   Widget build(BuildContext context) {
+    final visitor = Provider.of<VisitorState>(context);
     final loginButon = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
@@ -76,7 +89,26 @@ class AddVisitorPageState extends State<AddVisitorPage> {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width / 1.5,
         padding: EdgeInsets.fromLTRB(50.0, 15.0, 50.0, 15.0),
-        onPressed: () {},
+        onPressed: () {
+              final snackBar = SnackBar(
+            content: Text('Yay! A SnackBar!'),
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () {
+
+                // Some code to undo the change.
+              },
+            ),
+          );  
+          _submitForm();
+           visitor.recordVisit(_formData).then( (bool value){
+             if (value){
+              Scaffold.of(context).showSnackBar(snackBar);
+             }
+           });
+         
+
+        },
         child: Text("Record",
             textAlign: TextAlign.center,
             style: style.copyWith(
@@ -117,9 +149,12 @@ class AddVisitorPageState extends State<AddVisitorPage> {
             ListTile(
               leading: const Icon(Icons.person),
               title: DropdownButton<String>(
+                
                   value: dropdownValue,
                   hint: Text("Staff Name"),
                   onChanged: (String text) {
+
+                  _formData['staffToSee'] = text;
                     setState(() {
                       dropdownValue = text;
                     });
