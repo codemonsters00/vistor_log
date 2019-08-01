@@ -17,7 +17,7 @@ final snackBar = SnackBar(
               }));
 
   Future<bool> recordVisit(Map<String, dynamic> record) async {
-    final response = await http.post('http://192.168.100.15:45455/api/values',
+    final response = await http.post('http://192.168.8.103:45457/api/values',
         body: (record),headers:{'Content-Type': 'application/x-www-form-urlencoded'});
         
             if (response.statusCode == 200) {

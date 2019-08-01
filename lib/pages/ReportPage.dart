@@ -11,7 +11,7 @@ class ReportPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final appState = Provider.of<EmployeeState>(context);
      final visitortest = Provider.of<VisitorState>(context);
-     Map<String, dynamic> map = {'name': 'man', 'sex': 'females','sex': 'females','sex': 'females','sex': 'females'};
+     Map<String, dynamic> map = {'name': 'man', 'sex': 'females','sex': 'fedmales','sexs': 'females','dsex': 'rfemales'};
      visitortest.recordVisit(map);
    
 
